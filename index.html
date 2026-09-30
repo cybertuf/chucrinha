@@ -225,19 +225,13 @@
                 const mensagem = encodeURIComponent(
                     "vamos reatar casar e fazer nossa festa na laje + sexta dos crias com o ramon sucesso!!!!!!!!"
                 );
-
-                window.open(
-                    `https://wa.me/${numero}?text=${mensagem}`,
-                    "_blank"
-                );
-
-            }, 5000);
+            });
 
             const mensagens = [
                 "TMJ CHUCRINHA LINDA ",
                 "A VOLTA DAS ++ ",
                 "EBAAAAAA ",
-                "FESTA NA LAJE HOJE"
+                "FESTA NA LAJE HOJE!!!"
             ];
 
             alert(
@@ -308,11 +302,24 @@
 
                     setTimeout(() => {
                         particle.remove();
-                    }, 4000);
+                    }, 7000);
                 }
 
                 document.body.style.background =
-    "radial-gradient(circle, #ffb3d1, #8f1853, #3e0421)";
+                    "radial-gradient(circle, #ffb3d1, #8f1853, #3e0421)";
+
+                setTimeout(() => {
+
+                    const numero = "5561999606047";
+
+                    const mensagem = encodeURIComponent(
+                        "vamos reatar casar e fazer nossa festa na laje + sexta dos crias com o ramon sucesso!!!!!!!!"
+                    );
+
+                    window.location.href =
+                        `https://wa.me/${numero}?text=${mensagem}`;
+
+                }, 3000);
 
             }, 1200);
 
