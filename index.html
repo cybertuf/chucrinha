@@ -1,332 +1,125 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CHUCRINHA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explosão do Emoji</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        body {
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #3e0421, #3e0421);
-        }
+body{
+    overflow:hidden;
+    height:100vh;
+    background:radial-gradient(circle, #171714 0%, #665500 40%, #000000 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-        .container {
-            text-align: center;
-            padding: 20px;
-            width: 100%;
-        }
+#emojiPrincipal{
+    width:120px;
+    position:absolute;
+    animation:crescer 3s forwards;
+}
 
-        h1 {
-            color: white;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
-            margin-bottom: 20px;
-            padding: 0 15px;
-        }
+@keyframes crescer{
+    0%{
+        transform:scale(0.2) rotate(0deg);
+    }
+    100%{
+        transform:scale(7) rotate(15deg);
+    }
+}
 
-        #mensagem {
-            color: #ffd6e8;
-            font-size: 1.2rem;
-            min-height: 35px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
+.particula{
+    position:absolute;
+    pointer-events:none;
+}
 
-        button {
-            border: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-size: clamp(18px, 4vw, 24px);
-            cursor: pointer;
-            margin: 10px;
-            min-width: 130px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
+@keyframes voar{
+    from{
+        transform:translate(0,0) rotate(0deg);
+        opacity:1;
+    }
+    to{
+        transform:translate(var(--x),var(--y)) rotate(720deg);
+        opacity:0;
+    }
+}
 
-        #sim {
-            background: #ff0000;
-            color: white;
-            position: fixed;
-            z-index: 9999;
-        }
-
-        #nao {
-            background: #4CAF50;
-            color: white;
-        }
-
-        #heart {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 70px;
-            display: none;
-            z-index: 10000;
-        }
-
-        .grow {
-            animation: crescer 1.2s forwards;
-        }
-
-        @keyframes crescer {
-            from {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            to {
-                transform: translate(-50%, -50%) scale(15);
-            }
-        }
-
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            animation: explodir 5s linear forwards;
-        }
-
-        @keyframes explodir {
-            from {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-
-            to {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) scale(0.2);
-            }
-        }
-
-        .shine {
-            animation: brilho 1s infinite alternate;
-        }
-
-        @keyframes brilho {
-            from {
-                filter: brightness(100%);
-            }
-
-            to {
-                filter: brightness(150%);
-            }
-        }
-
-        @media (max-width: 768px) {
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            button {
-                width: 140px;
-                padding: 14px 20px;
-            }
-
-            #mensagem {
-                font-size: 1rem;
-            }
-        }
-    </style>
+h1{
+    position:absolute;
+    top:30px;
+    color:#171615;
+    font-family:Arial;
+    text-shadow:0 0 20px #0f0f0e;
+    letter-spacing:3px;
+}
+</style>
 </head>
 
 <body>
 
-    <div class="container">
-
-        <h1>
-            VAI SUMIR E ME BLOCK?<br>
-        </h1>
-
-        <p id="mensagem"></p>
-
-        <button id="sim">SIM</button>
-        <button id="nao">NÃO</button>
-
-    </div>
-
-    <div id="heart">❤️</div>
-
-    <script>
-
-        const btnSim = document.getElementById("sim");
-
-        let tentativas = 0;
-
-        const frases = [
-            " MDS ta tentando clicar no SIM?",
-            "Eu vi isso aí...",
-            "🚫 Não vai dar não",
-            " Tu quer mesmo né",
-        ];
-
-        function fugir() {
-
-            document.getElementById("mensagem").innerText =
-                frases[Math.min(tentativas, frases.length - 1)];
-
-            tentativas++;
-
-            if (tentativas === 5) {
-                document.querySelector("h1").innerHTML =
-                    "AINDA TENTANDO O SIM? ";
-            }
-
-            if (tentativas === 10) {
-                document.querySelector("h1").innerHTML =
-                    "MEU DEUS CHUCRINHA, APERTA O NÃO ";
-            }
 
 
-            const larguraBotao = btnSim.offsetWidth;
-            const alturaBotao = btnSim.offsetHeight;
+<img
+id="emojiPrincipal"
+src="emoji_transparente.png"
+alt="Emoji">
 
-            const larguraTela = window.innerWidth - larguraBotao - 20;
-            const alturaTela = window.innerHeight - alturaBotao - 20;
+<script>
 
-            const x = Math.random() * larguraTela;
-            const y = Math.random() * alturaTela;
+const emoji = document.getElementById("emojiPrincipal");
 
-            btnSim.style.left = x + "px";
-            btnSim.style.top = y + "px";
-        }
+setTimeout(() => {
 
-        btnSim.style.left = "60%";
-        btnSim.style.top = "65%";
+    emoji.style.display = "none";
 
-        /* PC */
-        btnSim.addEventListener("mouseenter", fugir);
+    for(let i=0;i<80;i++){
 
-        /* Celular */
-        btnSim.addEventListener("touchstart", (e) => {
-            e.preventDefault();
-            fugir();
-        });
+        const p = document.createElement("img");
 
-        document.getElementById("nao").addEventListener("click", () => {
+        p.src = "emoji_transparente.png";
+        p.classList.add("particula");
 
-            setTimeout(() => {
+        const tamanho = Math.random()*120 + 40;
 
-                const numero = "5561999606047";
+        p.style.width = tamanho + "px";
 
-                const mensagem = encodeURIComponent(
-                    "vamos reatar casar e fazer nossa festa na laje + sexta dos crias com o ramon sucesso!!!!!!!!"
-                );
-            });
+        p.style.left = window.innerWidth/2 + "px";
+        p.style.top = window.innerHeight/2 + "px";
 
-            const mensagens = [
-                "TMJ CHUCRINHA LINDA ",
-                "A VOLTA DAS ++ ",
-                "EBAAAAAA ",
-                "FESTA NA LAJE HOJE!!!"
-            ];
+        const x =
+            (Math.random()-0.5)*2500 + "px";
 
-            alert(
-                mensagens[Math.floor(Math.random() * mensagens.length)]
-            );
+        const y =
+            (Math.random()-0.5)*2000 + "px";
 
-            const heart = document.getElementById("heart");
+        p.style.setProperty("--x",x);
+        p.style.setProperty("--y",y);
 
-            heart.style.display = "block";
-            heart.classList.add("grow");
+        const tempo =
+            Math.random()*2 + 2;
 
-            setTimeout(() => {
+        p.style.animation =
+            `voar ${tempo}s forwards`;
 
-                heart.style.display = "none";
+        document.body.appendChild(p);
 
-                document.body.classList.add("shine");
+        setTimeout(()=>{
+            p.remove();
+        },tempo*1000);
 
-                document.querySelector("h1").innerHTML =
-                    "casal das chucrinhas voltou";
+    }
 
-                document.getElementById("mensagem").innerHTML =
-                    "a volta das ++";
+},3000);
 
-                for (let i = 0; i < 600; i++) {
-
-                    const particle = document.createElement("div");
-
-                    particle.className = "particle";
-
-                    const emojis = [
-                        "❤️",
-                        "💖",
-                        "💕",
-                        "💘",
-                        "💝",
-                        "✨",
-                        "🥰",
-                        "😍"
-                    ];
-
-                    particle.innerHTML =
-                        emojis[
-                        Math.floor(
-                            Math.random() * emojis.length
-                        )
-                        ];
-
-                    particle.style.left = "50%";
-                    particle.style.top = "50%";
-
-                    particle.style.fontSize =
-                        (Math.random() * 45 + 15) + "px";
-
-                    particle.style.setProperty(
-                        "--x",
-                        (Math.random() * 3500 - 1750) + "px"
-                    );
-
-                    particle.style.setProperty(
-                        "--y",
-                        (Math.random() * 3500 - 1750) + "px"
-                    );
-
-                    particle.style.filter =
-                        `drop-shadow(0 0 ${Math.random() * 20 + 5}px white)`;
-
-                    document.body.appendChild(particle);
-
-                    setTimeout(() => {
-                        particle.remove();
-                    }, 7000);
-                }
-
-                document.body.style.background =
-                    "radial-gradient(circle, #ffb3d1, #8f1853, #3e0421)";
-
-                setTimeout(() => {
-
-                    const numero = "5561999606047";
-
-                    const mensagem = encodeURIComponent(
-                        "vamos reatar casar e fazer nossa festa na laje + sexta dos crias com o ramon sucesso!!!!!!!!"
-                    );
-
-                    window.location.href =
-                        `https://wa.me/${numero}?text=${mensagem}`;
-
-                }, 3000);
-
-            }, 1200);
-
-        });
-
-    </script>
+</script>
 
 </body>
-
 </html>
